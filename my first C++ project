@@ -1,0 +1,76 @@
+#include <bits/stdc++.h>
+#include <windows.h>
+using namespace std;
+void setColor(int color) {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, color);
+}
+string getChoiceName(char choice) {
+        if (choice == 'r') {
+            return "Rock";
+        }
+        else if (choice == 'p') {
+            return "Paper";
+        }
+        else {
+            return "Scissors";
+        }
+    }
+int main() {
+    srand(time(0));
+    int wins = 0;
+    int losses = 0;
+    cout<<"=== Rock, Paper, Scissors==="<<endl;
+    cout<<"How many rounds do you want to play?"<<endl;
+    int n;
+    cin>>n;
+    system("cls");
+    for(int i=0;i<n;i++) {
+        cout<<"\n\nRound "<<i+1<<": "<<endl;
+        cout<<"Enter your choice(r/p/s): "<<endl;
+        char choice;
+        cin>>choice;
+        char computer;
+        int x=rand()%3;
+        if(x==0) {
+            computer='r';
+        }else if(x==1) {
+            computer='p';
+        }else if(x==2) {
+            computer='s';
+        }
+            while(choice != 'r' && choice != 'p' && choice != 's') {
+                cout<<"Rong thoies bleas try again"<<endl;
+                cout<<"Enter your choice(r/p/s): "<<endl;
+                cin >> choice;
+            }cout << "You chose " << getChoiceName(choice)
+     << ". Computer chose " << getChoiceName(computer) << "." << endl;
+        if(computer==choice) {
+            setColor(14);
+            cout << "It's a tie!" << endl;
+        }else if((choice=='r'&&computer=='s')||(choice=='p'&&computer=='r')||( choice=='s'&&computer=='p')) {
+            setColor(10);
+            cout << "You win this round!" << endl;
+            wins++;
+        }else {
+            setColor(12);
+            cout << "Computer wins this round!" << endl;
+            losses++;
+        }setColor(7);
+        cout<<"score -> you:"<<wins<<"   computer:"<< losses<<endl;
+    }cout<<"\n\n===Final Result==="<<endl<<"You:"<<wins<<"  | computer:"<< losses<<endl;
+    if (wins == losses) {
+        setColor(14);
+        cout << "It's a tie overall." << endl;
+    }
+    else if (wins > losses) {
+        setColor(10);
+        cout << "You are the winner." << endl;
+    }
+    else {
+        setColor(12);
+        cout << "You are the loser." << endl;
+    }
+
+    setColor(7);
+}
